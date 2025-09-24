@@ -1,25 +1,32 @@
-name: Deploy Mini-ERP
+name: Deploy to EC2
 
 on:
   push:
-    branches: ["master"]  # o la rama que uses
+    branches:
+      - master
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Ejecutar despliegue en EC2
-        uses: appleboy/ssh-action@v0.1.7
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v0.1.6
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_KEY }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /var/www/mini-erp
-            git reset --hard
-            git pull origin main
+            git reset --hard origin/master
+            git pull origin master
             composer install --no-dev --optimize-autoloader
-            php artisan migrate --force
-            sudo systemctl restart php-fpm
-            sudo systemctl restart nginx
+            php artisan config:cache
+            php artisan route:cache
+            php artisan view:clear
+            # Fijar permisos correctos
+            sudo chown -R ec2-user:apache storage bootstrap/cache
+            sudo chmod -R 775 storage bootstrap/cache
