@@ -11,4 +11,4 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-require __DIR__ . '/auth.php'; // si auth.php define rutas, también estarán bajo /mini-erp
+require __DIR__ . '/auth.php';
