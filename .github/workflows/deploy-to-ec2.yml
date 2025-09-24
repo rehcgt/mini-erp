@@ -2,7 +2,7 @@ name: Deploy Mini-ERP
 
 on:
   push:
-    branches: ["main"]  # o la rama que uses
+    branches: ["master"]  # o la rama que uses
 
 jobs:
   deploy:
