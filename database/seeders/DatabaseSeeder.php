@@ -13,11 +13,45 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // Ejecutar seeders en orden
+        $this->call([
+            RoleSeeder::class,
+            ProductSeeder::class,
+            CustomerSeeder::class,
+        ]);
 
-        User::factory()->create([
+        // Crear usuarios de prueba con roles
+        $adminRole = \App\Models\Role::where('name', 'admin')->first();
+        $userRole = \App\Models\Role::where('name', 'user')->first();
+
+        // Usuario administrador
+        $admin = User::firstOrCreate([
+            'email' => 'admin@minierp.com'
+        ], [
+            'name' => 'Administrador ERP',
+            'email' => 'admin@minierp.com',
+            'password' => bcrypt('password'),
+        ]);
+        $admin->roles()->syncWithoutDetaching([$adminRole->id]);
+
+        // Usuario regular
+        $user = User::firstOrCreate([
+            'email' => 'user@minierp.com'
+        ], [
+            'name' => 'Usuario ERP',
+            'email' => 'user@minierp.com',
+            'password' => bcrypt('password'),
+        ]);
+        $user->roles()->syncWithoutDetaching([$userRole->id]);
+
+        // Usuario de prueba existente (actualizar con rol)
+        $testUser = User::firstOrCreate([
+            'email' => 'test@example.com'
+        ], [
             'name' => 'Test User',
             'email' => 'test@example.com',
+            'password' => bcrypt('password'),
         ]);
+        $testUser->roles()->syncWithoutDetaching([$userRole->id]);
     }
 }
