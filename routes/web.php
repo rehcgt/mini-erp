@@ -43,3 +43,14 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 require __DIR__ . '/auth.php';
+
+// Rutas de Livewire con prefijo /mini-erp
+Route::post('/livewire/update', '\Livewire\Mechanisms\HandleRequests\HandleRequests@handleUpdate')
+    ->name('livewire.update')
+    ->middleware('web');
+
+Route::get('/livewire/livewire.js', '\Livewire\Mechanisms\FrontendAssets\FrontendAssets@returnJavaScriptAsFile')
+    ->name('livewire.javascript-assets');
+
+Route::get('/livewire/livewire.js.map', '\Livewire\Mechanisms\FrontendAssets\FrontendAssets@returnSourceMapAsFile')
+    ->name('livewire.javascript-source-map');
