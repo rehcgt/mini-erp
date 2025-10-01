@@ -2,8 +2,8 @@
 
 return [
     'manifest_path' => null,
-    'app_url' => null,
-    'asset_url' => env('LIVEWIRE_ASSET_URL', '/mini-erp'),
+    'app_url' => env('APP_URL', null),
+    'asset_url' => env('LIVEWIRE_ASSET_URL', null),
     'middleware' => [
         'web',
     ],
