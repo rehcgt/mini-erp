@@ -21,13 +21,13 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /var/www/html/mini-erp
-            git reset --hard origin/master
-            git pull origin master
-            composer install --no-dev --optimize-autoloader
-            npm install
-            npm run build
-            php artisan config:cache
-            php artisan route:cache
-            php artisan view:clear
+            sudo -u ec2-user git reset --hard origin/master
+            sudo -u ec2-user git pull origin master
+            sudo -u ec2-user composer install --no-dev --optimize-autoloader
+            sudo -u ec2-user npm install
+            sudo -u ec2-user npm run build
+            sudo -u ec2-user php artisan config:cache
+            sudo -u ec2-user php artisan route:cache
+            sudo -u ec2-user php artisan view:clear
             sudo chown -R ec2-user:apache storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
