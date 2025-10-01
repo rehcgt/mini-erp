@@ -12,6 +12,7 @@ return [
     'view_path' => resource_path('views/livewire'),
     'layout' => 'components.layouts.app',
     'render_on_redirect' => false,
+    'update_uri' => '/mini-erp/livewire/update',
     'temporary_file_upload' => [
         'disk' => null,
         'rules' => null,
