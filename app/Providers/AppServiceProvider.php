@@ -21,19 +21,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        // Configurar Livewire para usar el prefijo /mini-erp
+        // Configurar Livewire para el subdirectorio
         Livewire::setUpdateRoute(function ($handle) {
-            return Route::post('/mini-erp/livewire/update', $handle)
+            return Route::post('/livewire/update', $handle)
+                ->name('livewire.update')
                 ->middleware('web');
         });
 
         Livewire::setScriptRoute(function ($handle) {
-            return Route::get('/mini-erp/livewire/livewire.js', $handle);
+            return Route::get('/livewire/livewire.js', $handle)
+                ->name('livewire.javascript-assets');
         });
-
-        // Configurar la URL base para los updates de Livewire
-        if (config('app.env') !== 'testing') {
-            config(['livewire.update_uri' => '/mini-erp/livewire/update']);
-        }
     }
 }

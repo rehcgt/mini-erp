@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |---------------------------------------------------------------------------
     | Class Namespace
@@ -157,4 +156,32 @@ return [
     */
 
     'pagination_theme' => 'tailwind',
+
+    /*
+    |---------------------------------------------------------------------------
+    | Livewire Update URI
+    |---------------------------------------------------------------------------
+    |
+    | This value sets the URI that Livewire will use to make POST requests for
+    | updating components. You can change this to any URI you prefer, but make
+    | sure it matches the route in your web.php file.
+    |
+    */
+
+    'update_uri' => env('LIVEWIRE_UPDATE_URI', '/livewire/update'),
+
+    /*
+    |---------------------------------------------------------------------------
+    | Middleware
+    |---------------------------------------------------------------------------
+    |
+    | These middleware will be applied when Livewire requests hit your application.
+    | Typically, you may want to add 'web' middleware here, but you can add any
+    | middleware you need for your application.
+    |
+    */
+
+    'middleware' => [
+        'web',
+    ],
 ];
