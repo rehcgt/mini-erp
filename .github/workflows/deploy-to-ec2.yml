@@ -20,7 +20,7 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_KEY }}
           script: |
-            cd /var/www/mini-erp
+            cd /var/www/html/mini-erp
             git reset --hard origin/master
             git pull origin master
             composer install --no-dev --optimize-autoloader
