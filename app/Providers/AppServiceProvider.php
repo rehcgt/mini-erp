@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\URL;
 use Livewire\Livewire;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,6 +22,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Configurar URL base para subdirectorio
+        if (config('app.env') !== 'testing') {
+            URL::forceRootUrl(config('app.url'));
+        }
+
         // Configurar Livewire para el subdirectorio
         Livewire::setUpdateRoute(function ($handle) {
             return Route::post('/livewire/update', $handle)
