@@ -26,9 +26,6 @@ jobs:
             sudo -u ec2-user composer install --no-dev --optimize-autoloader
             sudo -u ec2-user npm install
             sudo -u ec2-user npm run build
-            sudo -u ec2-user php artisan config:clear
-            sudo -u ec2-user php artisan cache:clear
-            sudo -u ec2-user php artisan route:cache
-            sudo -u ec2-user php artisan view:clear
+            sudo -u ec2-user php artisan route:clear && php artisan config:clear && php artisan view:clear && php artisan cache:clear
             sudo chown -R ec2-user:apache storage bootstrap/cache
             sudo chmod -R 775 storage bootstrap/cache
