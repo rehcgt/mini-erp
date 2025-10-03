@@ -34,5 +34,6 @@
             </main>
         </div>
         @livewireScripts
+        <script src="https://unpkg.com/heroicons@2.0.18/24/outline/index.js" type="module"></script>
     </body>
 </html>
