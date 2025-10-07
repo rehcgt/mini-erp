@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: Deploy to DigitalOcean
 
 on:
   push:
@@ -21,11 +21,7 @@ jobs:
           key: ${{ secrets.EC2_KEY }}
           script: |
             cd /var/www/html/mini-erp
-            sudo -u ec2-user git reset --hard origin/master
-            sudo -u ec2-user git pull origin master
-            sudo -u ec2-user composer install --no-dev --optimize-autoloader
-            sudo -u ec2-user npm install
-            sudo -u ec2-user npm run build
-            sudo -u ec2-user php artisan route:clear && php artisan config:clear && php artisan view:clear && php artisan cache:clear
-            sudo chown -R ec2-user:apache storage bootstrap/cache
-            sudo chmod -R 775 storage bootstrap/cache
+            git pull origin master
+            composer install --no-dev --optimize-autoloader --prefer-dist
+            npm install && npm run build
+            php artisan route:clear && php artisan config:clear && php artisan view:clear && php artisan cache:clear
